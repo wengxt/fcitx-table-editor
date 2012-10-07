@@ -13,13 +13,13 @@ RoleModel::RoleModel(FileParser *fileParser, QObject *parent)
 
 int RoleModel::rowCount(const QModelIndex & /* parent */) const
 {
-  return parserModel->Length.toInt() - 1;
+  return wordRole->size();
 }
 
 
 int RoleModel::columnCount(const QModelIndex & /* parent */) const
 {
-  return parserModel->Length.toInt() + 1;
+  return wordRole->size() + 1;
 }
 
 QVariant RoleModel::data(const QModelIndex &index, int role) const
@@ -31,7 +31,7 @@ QVariant RoleModel::data(const QModelIndex &index, int role) const
   if (role == Qt::TextAlignmentRole) {
     return int(Qt::AlignLeft | Qt::AlignVCenter);
   }
-  if (role == Qt::DisplayRole) {
+  if (role == Qt::DisplayRole && wordRole) {
     if (index.column() == 0)
        return wordRole->at(index.row()).first;
     else if (wordRole->at(index.row()).second.size() >= index.column())
