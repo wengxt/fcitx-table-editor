@@ -4,6 +4,7 @@
 #include "ui_window.h"
 #include <QMainWindow>
 #include "FileParser.h"
+#include "RoleModel.h"
 
 class MainWindow : public QMainWindow, public Ui::window
 {
@@ -17,6 +18,7 @@ private slots:
 private:
   QString fileName;
   FileParser xx;
+  RoleModel *roleModel;
 };
 
 

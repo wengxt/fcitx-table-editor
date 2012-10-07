@@ -4,6 +4,8 @@
 #include <QString>
 #include <QStringList>
 #include <QMultiMap>
+#include <QPair>
+#include <QFile>
 
 class FileParser
 {
@@ -14,8 +16,8 @@ class FileParser
   QString Length;
   QString pinyinPrefix;
   QString pinyinLens;
-  QMap<QString, QStringList> guize;
-  QMultiMap<QString, QString> keymap;
+  QList< QPair<QString, QStringList> > wordRole;
+  QList< QPair<QString, QString> > keymap;
 
 
  private:
@@ -25,7 +27,7 @@ class FileParser
   QString readSection(const QString text);
 
   bool intoData;
-  bool intoGuize;
+  bool intoRole;
 
 };
 

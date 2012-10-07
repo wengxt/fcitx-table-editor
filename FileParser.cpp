@@ -4,7 +4,9 @@
 void FileParser::openFile(QString fileName)
 {
   intoData = false;
-  intoGuize = false;
+  intoRole = false;
+  if (fileName.isEmpty())
+      return;
   QFile file(fileName);
   if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     return;
@@ -24,12 +26,9 @@ void FileParser::openFile(QString fileName)
 
 void FileParser::pfall()
 {
-  qDebug() << KeyCode << Length << guize << keymap;
-  QStringList str = keymap.values();
   QTextStream out(stdout);
   out.setCodec("UTF-8");
-  foreach(QString tmp, str)
-      out << tmp;
+  out << KeyCode << endl << Length;
 }
 void FileParser::processLine(const QString text)
 {
@@ -38,7 +37,7 @@ void FileParser::processLine(const QString text)
     keyVal = readKeyVal(text);
     if (keyVal.size() <= 1)
       return;
-    keymap.insert(keyVal.at(0), keyVal.at(1));
+    keymap.append(qMakePair(keyVal.at(0), keyVal.at(1)));
     return;
   }
 
@@ -46,19 +45,19 @@ void FileParser::processLine(const QString text)
   if (!section.isEmpty()) {
     if (section == QString::fromUtf8("数据") || section == "Data") {
       intoData = true;
-      intoGuize = false;
+      intoRole = false;
       return;
     }
     if (section == QString::fromUtf8("组词规则")) {
-      intoGuize = true;
+      intoRole = true;
     }
   }
 
   QStringList conf = readConf(text);
   if (!conf.isEmpty()) {
-    if (intoGuize == true) {
+    if (intoRole == true) {
       QStringList tmp = conf.at(1).split('+');
-      guize.insert(conf.at(0), tmp);
+      wordRole.append(qMakePair(conf.at(0), tmp));
     }
     if (conf.at(0) == QString::fromUtf8("键码") || conf.at(0) == "KeyCode") {
       KeyCode = conf.at(1);
