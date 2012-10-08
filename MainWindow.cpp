@@ -18,6 +18,6 @@ void MainWindow::on_openfile_triggered()
     words_role_view->setModel(roleModel);
     keyCodeLineEdit->setText(xx.KeyCode);
     lengthSpinBox->setValue(xx.Length.toInt());
-    pinyinLineEdit->setText(xx.pinyinPrefix);
-    pinyinLensSpinBox->setValue(xx.pinyinLens.toInt());
+    pinyinLineEdit->setText(xx.Pinyin);
+    pinyinLensSpinBox->setValue(xx.PinyinLength.toInt());
 }

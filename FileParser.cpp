@@ -5,6 +5,16 @@ void FileParser::openFile(QString fileName)
 {
   intoData = false;
   intoRole = false;
+  wordRole.clear();
+  keymap.clear();
+  KeyCode = QString();
+  Length = QString();
+  Pinyin = QString();
+  PinyinLength = QString();
+  Prompt = QString();
+  ConstructPhrase = QString();
+  InvalidChar = QString();
+
   if (fileName.isEmpty())
       return;
   QFile file(fileName);
@@ -48,7 +58,7 @@ void FileParser::processLine(const QString text)
       intoRole = false;
       return;
     }
-    if (section == QString::fromUtf8("组词规则")) {
+    if (section == QString::fromUtf8("组词规则") || section == "Rule") {
       intoRole = true;
     }
   }
@@ -67,12 +77,24 @@ void FileParser::processLine(const QString text)
       Length = conf.at(1);
       return;
     }
-    if (conf.at(0) == QString::fromUtf8("拼音")) { 
-      pinyinPrefix = conf.at(1);
+    if (conf.at(0) == QString::fromUtf8("拼音") || conf.at(0) == "Pinyin") { 
+      Pinyin = conf.at(1);
       return;
     }
-      if (conf.at(0) == QString::fromUtf8("拼音长度")) { 
-      pinyinLens = conf.at(1);
+    if (conf.at(0) == QString::fromUtf8("拼音长度") || conf.at(0) == "PinyinLength") { 
+      PinyinLength = conf.at(1);
+      return;
+    }
+    if (conf.at(0) == QString::fromUtf8("提示") || conf.at(0) == "Prompt") { 
+      Prompt = conf.at(1);
+      return;
+    }
+    if (conf.at(0) == QString::fromUtf8("构词") || conf.at(0) == "ConstructPhrase") { 
+      ConstructPhrase = conf.at(1);
+      return;
+    }
+    if (conf.at(0) == QString::fromUtf8("规避字符") || conf.at(0) == "InvalidChar") { 
+      InvalidChar = conf.at(1);
       return;
     }
   }

@@ -12,13 +12,19 @@ class FileParser
  public:
   void openFile(QString fileName);
   void pfall(void);
+
+  // follow MB template,
+  // https://github.com/fcitx/fcitx/blob/master/tools/mb2txt.c
   QString KeyCode;
   QString Length;
-  QString pinyinPrefix;
-  QString pinyinLens;
+  QString Pinyin;
+  QString PinyinLength;
+  QString Prompt;
+  QString ConstructPhrase;
+  QString InvalidChar;
+
   QList< QPair<QString, QStringList> > wordRole;
   QList< QPair<QString, QString> > keymap;
-
 
  private:
   void processLine(const QString text);
