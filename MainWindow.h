@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include "FileParser.h"
 #include "RoleModel.h"
+#include "WordModel.h"
 
 class MainWindow : public QMainWindow, public Ui::window
 {
@@ -19,6 +20,7 @@ private:
   QString fileName;
   FileParser xx;
   RoleModel *roleModel;
+  WordModel *wordModel;
 };
 
 

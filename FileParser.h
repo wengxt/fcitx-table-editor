@@ -1,6 +1,7 @@
 #ifndef _FILEPARSER_H_
 #define _FILEPARSER_H_
 
+#include "WordDic.h"
 #include <QString>
 #include <QStringList>
 #include <QMultiMap>
@@ -13,7 +14,7 @@ class FileParser
   void openFile(QString fileName);
   void pfall(void);
 
-  // follow MB template,
+  // follow var are MB template,
   // https://github.com/fcitx/fcitx/blob/master/tools/mb2txt.c
   QString KeyCode;
   QString Length;
@@ -24,7 +25,7 @@ class FileParser
   QString InvalidChar;
 
   QList< QPair<QString, QStringList> > wordRole;
-  QList< QPair<QString, QString> > keymap;
+  QList<WordDic *> keymap;
 
  private:
   void processLine(const QString text);

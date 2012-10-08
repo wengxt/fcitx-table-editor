@@ -45,7 +45,7 @@
      <bool>true</bool>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <property name="autoFillBackground">
@@ -146,13 +146,6 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="editRole">
-            <property name="text">
-             <string>Edit</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="delRole">
             <property name="text">
              <string>Delete</string>
@@ -229,13 +222,6 @@
            <widget class="QPushButton" name="wordAdd">
             <property name="text">
              <string>Add</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="wordEdit">
-            <property name="text">
-             <string>Edit</string>
             </property>
            </widget>
           </item>

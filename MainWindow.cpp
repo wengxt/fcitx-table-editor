@@ -15,9 +15,12 @@ void MainWindow::on_openfile_triggered()
         return;
     xx.openFile(fileName);
     roleModel = new RoleModel(&xx);
+    wordModel = new WordModel(&xx);
     words_role_view->setModel(roleModel);
+    TableEditorTableview->setModel(wordModel);
     keyCodeLineEdit->setText(xx.KeyCode);
     lengthSpinBox->setValue(xx.Length.toInt());
     pinyinLineEdit->setText(xx.Pinyin);
     pinyinLensSpinBox->setValue(xx.PinyinLength.toInt());
+    TableEditorTableview->setSortingEnabled(true);
 }

@@ -6,14 +6,15 @@ void FileParser::openFile(QString fileName)
   intoData = false;
   intoRole = false;
   wordRole.clear();
+  qDeleteAll(keymap.begin(), keymap.end());
   keymap.clear();
-  KeyCode = QString();
-  Length = QString();
-  Pinyin = QString();
-  PinyinLength = QString();
-  Prompt = QString();
-  ConstructPhrase = QString();
-  InvalidChar = QString();
+  KeyCode.clear();
+  Length.clear();
+  Pinyin.clear();
+  PinyinLength.clear();
+  Prompt.clear();
+  ConstructPhrase.clear();
+  InvalidChar.clear();
 
   if (fileName.isEmpty())
       return;
@@ -47,7 +48,8 @@ void FileParser::processLine(const QString text)
     keyVal = readKeyVal(text);
     if (keyVal.size() <= 1)
       return;
-    keymap.append(qMakePair(keyVal.at(0), keyVal.at(1)));
+    WordDic *tmp = new WordDic(keyVal.at(0), keyVal.at(1));
+    keymap.append(tmp);
     return;
   }
 
