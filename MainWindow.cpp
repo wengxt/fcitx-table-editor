@@ -6,7 +6,7 @@ MainWindow::MainWindow()
   setupUi(this);
 }
 
-void MainWindow::on_openfile_triggered()
+void MainWindow::on_action_Open_triggered()
 {
     fileName = QFileDialog::getOpenFileName(this, tr("Open MB File"),
                                                         "~/",
@@ -14,13 +14,18 @@ void MainWindow::on_openfile_triggered()
     if (fileName.isEmpty())
         return;
     xx.openFile(fileName);
-    roleModel = new RoleModel(&xx);
-    wordModel = new WordModel(&xx);
-    words_role_view->setModel(roleModel);
-    TableEditorTableview->setModel(wordModel);
     keyCodeLineEdit->setText(xx.KeyCode);
     lengthSpinBox->setValue(xx.Length.toInt());
     pinyinLineEdit->setText(xx.Pinyin);
     pinyinLensSpinBox->setValue(xx.PinyinLength.toInt());
-    TableEditorTableview->setSortingEnabled(true);
+
+    roleModel = new RoleModel(&xx);
+    wordModel = new WordModel(&xx);
+    words_role_view->setModel(roleModel);
+    words_role_view->setSortingEnabled(false);
+    words_role_view->horizontalHeader()->setStretchLastSection(true);
+    wordDic_tableView->setModel(wordModel);
+    wordDic_tableView->setSortingEnabled(true);
+    wordDic_tableView->horizontalHeader()->setStretchLastSection(true);
 }
+
