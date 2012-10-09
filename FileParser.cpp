@@ -6,7 +6,6 @@ void FileParser::openFile(QString fileName)
   intoData = false;
   intoRole = false;
   wordRole.clear();
-  qDeleteAll(keymap.begin(), keymap.end());
   keymap.clear();
   KeyCode.clear();
   Length.clear();
@@ -48,8 +47,7 @@ void FileParser::processLine(const QString text)
     keyVal = readKeyVal(text);
     if (keyVal.size() <= 1)
       return;
-    WordDic *tmp = new WordDic(keyVal.at(0), keyVal.at(1));
-    keymap.append(tmp);
+    saveWordDic(keyVal);
     return;
   }
 
@@ -134,4 +132,20 @@ QString FileParser::readSection(const QString text)
     sectionName = sectionName.left(sectionName.size() - 1);
   }
   return sectionName;
+}
+
+void FileParser::saveWordDic(QStringList keyvalue)
+{
+    QString key = keyvalue.at(0);
+    QString value = keyvalue.at(1);
+    int i;
+    for (i = 1; i < INT_MAX; i++) {
+        if (keymap.find(key + QString::number(i)) == keymap.end())
+            keymap.insert((key + QString::number(i)), value);
+            break;
+        }
+    if (i == 1)
+        validKey.insert(key);
+    if (i == INT_MAX)
+        qDebug() << "fuck the key,it's too much" ;
 }

@@ -5,13 +5,14 @@ WordModel::WordModel(FileParser *fileParser, QObject *parent)
     : QAbstractTableModel(parent)
 {
     parserModel = fileParser;
-    wordKeyMap = &(fileParser->keymap);
+    keymap = &(fileParser->keymap);
+    validKey = &(fileParser->validKey);
     modelheader << "Key" << "Word";
 }
 
 int WordModel::rowCount(const QModelIndex & /* parent */) const
 {
-  return wordKeyMap->size();
+  return keymap->size();
 }
 
 
@@ -29,7 +30,7 @@ QVariant WordModel::data(const QModelIndex &index, int role) const
   if (role == Qt::TextAlignmentRole) {
     return int(Qt::AlignLeft | Qt::AlignVCenter);
   }
-  if (role == Qt::DisplayRole && index.row() < wordKeyMap->size()) {
+  if (role == Qt::DisplayRole && index.row() < keymap->size()) {
     if (index.column() == 0)
        return wordKeyMap->at(index.row())->get_key();
     else if (index.column() == 1)

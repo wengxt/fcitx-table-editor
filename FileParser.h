@@ -1,12 +1,11 @@
 #ifndef _FILEPARSER_H_
 #define _FILEPARSER_H_
 
-#include "WordDic.h"
 #include <QString>
 #include <QStringList>
 #include <QMultiMap>
 #include <QPair>
-#include <QFile>
+#include <QSet>
 
 class FileParser
 {
@@ -25,13 +24,16 @@ class FileParser
   QString InvalidChar;
 
   QList< QPair<QString, QStringList> > wordRole;
-  QList<WordDic *> keymap;
+  QMap<QString, QString> keymap; // index is one valid key repate times,
+                                 // keymap.key() = key + QString(index), key.value() = value
+  QSet<QString> validKey;
 
  private:
   void processLine(const QString text);
   QStringList readKeyVal(const QString text);
   QStringList readConf(const QString text);
   QString readSection(const QString text);
+  void saveWordDic(QStringList keyvalue);
 
   bool intoData;
   bool intoRole;

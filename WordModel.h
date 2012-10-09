@@ -22,7 +22,8 @@ class WordModel: public QAbstractTableModel
  private:
   QStringList modelheader;
   FileParser *parserModel;
-  QList<WordDic *> *wordKeyMap;
+  QSet<QString> *validKey;
+  QMap<QString, QString> *keymap;
 };
 
 #endif // WORDMODEL_H
