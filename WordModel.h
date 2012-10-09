@@ -12,7 +12,8 @@ class WordModel: public QAbstractTableModel
   Q_OBJECT
 
  public:
-  WordModel(FileParser *fileParser, QObject *parent = 0);
+  WordModel(QObject *parent = 0);
+  void chooseParser(FileParser *fileParser);
   int rowCount(const QModelIndex &parent) const;
   int columnCount(const QModelIndex &parent) const;
   QVariant data(const QModelIndex &index, int role) const;

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>408</width>
+    <width>410</width>
     <height>444</height>
    </rect>
   </property>
@@ -212,7 +212,7 @@
                <item>
                 <widget class="QLabel" name="label">
                  <property name="text">
-                  <string>RegExp Filter </string>
+                  <string>Filter </string>
                  </property>
                  <property name="buddy">
                   <cstring>reg_lineEdit</cstring>
@@ -224,6 +224,13 @@
                </item>
                <item>
                 <widget class="QLineEdit" name="reg_lineEdit"/>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton">
+                 <property name="text">
+                  <string>&amp;Ok</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -243,7 +250,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>408</width>
+     <width>410</width>
      <height>26</height>
     </rect>
    </property>

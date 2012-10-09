@@ -1,8 +1,13 @@
 #include "WordModel.h"
 #include <QtGui>
 
-WordModel::WordModel(FileParser *fileParser, QObject *parent)
+WordModel::WordModel(QObject *parent)
     : QAbstractTableModel(parent)
+{
+    modelheader << "Key" << "Word";
+}
+
+void WordModel::chooseParser(FileParser *fileParser)
 {
     parserModel = fileParser;
     keymap = &(fileParser->keymap);
@@ -41,7 +46,7 @@ QVariant WordModel::data(const QModelIndex &index, int role) const
   return QVariant();
 }
 
-bool WordModel::setData(const QModelIndex &index, const QVariant &value , int role)
+bool WordModel::setData(const QModelIndex &index, const QVariant &/*value*/ , int role)
 {
   if (!index.isValid()) {
     return false;

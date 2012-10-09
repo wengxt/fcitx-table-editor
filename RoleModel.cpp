@@ -1,8 +1,12 @@
 #include "RoleModel.h"
 #include <QtGui>
 
-RoleModel::RoleModel(FileParser *fileParser, QObject *parent)
+RoleModel::RoleModel(QObject *parent)
     : QAbstractTableModel(parent)
+{
+}
+
+void RoleModel::chooseParser(FileParser *fileParser)
 {
     parserModel = fileParser;
     wordRole = &(parserModel->wordRole);
@@ -10,6 +14,7 @@ RoleModel::RoleModel(FileParser *fileParser, QObject *parent)
     for (int i = 0; i < fileParser->Length.toInt(); i++)
         modelheader << QString().setNum(i + 1);
 }
+
 
 int RoleModel::rowCount(const QModelIndex & /* parent */) const
 {

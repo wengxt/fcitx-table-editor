@@ -4,6 +4,10 @@
 MainWindow::MainWindow()
 {
   setupUi(this);
+
+  roleModel = new RoleModel();
+  wordModel = new WordModel();
+  proxyModel = new MyProxyModel();
   regType_comboBox->addItem(tr("Regular expression"), QRegExp::RegExp);
   regType_comboBox->addItem(tr("Wildcard"), QRegExp::Wildcard);
   regType_comboBox->addItem(tr("Fixed string"), QRegExp::FixedString);
@@ -18,18 +22,17 @@ void MainWindow::on_action_Open_triggered()
     if (fileName.isEmpty())
         return;
     xx.openFile(fileName);
+    roleModel->chooseParser(&xx);
+    wordModel->chooseParser(&xx);
     keyCodeLineEdit->setText(xx.KeyCode);
     lengthSpinBox->setValue(xx.Length.toInt());
     pinyinLineEdit->setText(xx.Pinyin);
     pinyinLensSpinBox->setValue(xx.PinyinLength.toInt());
 
-    roleModel = new RoleModel(&xx);
     words_role_view->setModel(roleModel);
     words_role_view->setSortingEnabled(false);
     words_role_view->horizontalHeader()->setStretchLastSection(true);
 
-    wordModel = new WordModel(&xx);
-    proxyModel = new MyProxyModel();
     proxyModel->setSourceModel(wordModel);
     proxyModel->setFilterKeyColumn(0);
     wordDic_tableView->setModel(proxyModel);
@@ -37,12 +40,12 @@ void MainWindow::on_action_Open_triggered()
 
 }
 
-void MainWindow::on_reg_lineEdit_textChanged(const QString &arg1)
+void MainWindow::on_pushButton_released()
 {
    QRegExp::PatternSyntax syntax =
            QRegExp::PatternSyntax(regType_comboBox->itemData(
                                       regType_comboBox->currentIndex()).toInt());
-   delete regExp;
-   regExp = new QRegExp(reg_lineEdit->text(), Qt::CaseSensitive, syntax);
-   proxyModel->setFilterRegExp(*regExp);
+   regExp = QRegExp(reg_lineEdit->text(), Qt::CaseSensitive, syntax);
+   proxyModel->setFilterRegExp(regExp);
+
 }

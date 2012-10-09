@@ -17,7 +17,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
   // virtual ~MainWindow();
 private slots:
   void on_action_Open_triggered();
-  void on_reg_lineEdit_textChanged(const QString &arg1);
+  void on_pushButton_released();
 
 private:
   QString fileName;
@@ -25,7 +25,7 @@ private:
   RoleModel *roleModel;
   WordModel *wordModel;
   MyProxyModel *proxyModel;
-  QRegExp *regExp;
+  QRegExp regExp;
 };
 
 
