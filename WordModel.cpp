@@ -7,6 +7,7 @@ WordModel::WordModel(FileParser *fileParser, QObject *parent)
     parserModel = fileParser;
     keymap = &(fileParser->keymap);
     validKey = &(fileParser->validKey);
+    wordList = &fileParser->wordList;
     modelheader << "Key" << "Word";
 }
 
@@ -30,11 +31,12 @@ QVariant WordModel::data(const QModelIndex &index, int role) const
   if (role == Qt::TextAlignmentRole) {
     return int(Qt::AlignLeft | Qt::AlignVCenter);
   }
-  if (role == Qt::DisplayRole && index.row() < keymap->size()) {
+  if (role == Qt::DisplayRole && index.row() < wordList->size()) {
     if (index.column() == 0)
-       return wordKeyMap->at(index.row())->get_key();
+       return wordList->at(index.row()).first;
     else if (index.column() == 1)
-       return wordKeyMap->at(index.row())->get_value();
+       return (*keymap)[wordList->at(index.row()).first
+               + QString::number(wordList->at(index.row()).second)];
     }
   return QVariant();
 }
@@ -47,10 +49,10 @@ bool WordModel::setData(const QModelIndex &index, const QVariant &value , int ro
 
 
   if (role == Qt::EditRole) {
-      if (index.column() == 0)
-          wordKeyMap->at(index.row())->set_key(value.toString());
-      else if (index.column() == 1)
-          wordKeyMap->at(index.row())->set_value(value.toString());
+      if (index.column() == 0) {
+      }
+      else if (index.column() == 1) {
+      }
       emit dataChanged(index, index);
       return true;
   }
@@ -73,4 +75,12 @@ Qt::ItemFlags WordModel::flags(const QModelIndex & index) const
   if (index.isValid())
     flags |= Qt::ItemIsEditable;
   return flags;
+}
+
+bool WordModel::isWordDicExists(QString key, int index)
+{
+    if (keymap->find(key + QString::number(index)) == keymap->end())
+        return false;
+    else
+        return true;
 }

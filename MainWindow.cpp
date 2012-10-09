@@ -4,6 +4,10 @@
 MainWindow::MainWindow()
 {
   setupUi(this);
+  regType_comboBox->addItem(tr("Regular expression"), QRegExp::RegExp);
+  regType_comboBox->addItem(tr("Wildcard"), QRegExp::Wildcard);
+  regType_comboBox->addItem(tr("Fixed string"), QRegExp::FixedString);
+  regType_comboBox->setCurrentIndex(1);
 }
 
 void MainWindow::on_action_Open_triggered()
@@ -20,12 +24,25 @@ void MainWindow::on_action_Open_triggered()
     pinyinLensSpinBox->setValue(xx.PinyinLength.toInt());
 
     roleModel = new RoleModel(&xx);
-    wordModel = new WordModel(&xx);
     words_role_view->setModel(roleModel);
     words_role_view->setSortingEnabled(false);
     words_role_view->horizontalHeader()->setStretchLastSection(true);
-    wordDic_tableView->setModel(wordModel);
-    wordDic_tableView->setSortingEnabled(true);
+
+    wordModel = new WordModel(&xx);
+    proxyModel = new MyProxyModel();
+    proxyModel->setSourceModel(wordModel);
+    proxyModel->setFilterKeyColumn(0);
+    wordDic_tableView->setModel(proxyModel);
     wordDic_tableView->horizontalHeader()->setStretchLastSection(true);
+
 }
 
+void MainWindow::on_reg_lineEdit_textChanged(const QString &arg1)
+{
+   QRegExp::PatternSyntax syntax =
+           QRegExp::PatternSyntax(regType_comboBox->itemData(
+                                      regType_comboBox->currentIndex()).toInt());
+   delete regExp;
+   regExp = new QRegExp(reg_lineEdit->text(), Qt::CaseSensitive, syntax);
+   proxyModel->setFilterRegExp(*regExp);
+}

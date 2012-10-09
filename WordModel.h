@@ -5,6 +5,7 @@
 #include <QStringList>
 #include <QAbstractTableModel>
 #include <QSortFilterProxyModel>
+#include <QPair>
 
 class WordModel: public QAbstractTableModel
 {
@@ -20,10 +21,12 @@ class WordModel: public QAbstractTableModel
   Qt::ItemFlags flags(const QModelIndex &index) const;
 
  private:
+  bool isWordDicExists(QString key, int index);
   QStringList modelheader;
   FileParser *parserModel;
   QSet<QString> *validKey;
   QMap<QString, QString> *keymap;
+  QList< QPair<QString, int> > *wordList;
 };
 
 #endif // WORDMODEL_H

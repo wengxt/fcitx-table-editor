@@ -24,8 +24,9 @@ class FileParser
   QString InvalidChar;
 
   QList< QPair<QString, QStringList> > wordRole;
-  QMap<QString, QString> keymap; // index is one valid key repate times,
+  QMap<QString, QString> keymap; // index is the valid key repate times,
                                  // keymap.key() = key + QString(index), key.value() = value
+  QList< QPair<QString, int> > wordList;  //save the key and index
   QSet<QString> validKey;
 
  private:

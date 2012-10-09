@@ -6,7 +6,7 @@ void FileParser::openFile(QString fileName)
   intoData = false;
   intoRole = false;
   wordRole.clear();
-  keymap.clear();
+
   KeyCode.clear();
   Length.clear();
   Pinyin.clear();
@@ -14,6 +14,10 @@ void FileParser::openFile(QString fileName)
   Prompt.clear();
   ConstructPhrase.clear();
   InvalidChar.clear();
+
+  keymap.clear();
+  wordList.clear();
+  validKey.clear();
 
   if (fileName.isEmpty())
       return;
@@ -140,12 +144,14 @@ void FileParser::saveWordDic(QStringList keyvalue)
     QString value = keyvalue.at(1);
     int i;
     for (i = 1; i < INT_MAX; i++) {
-        if (keymap.find(key + QString::number(i)) == keymap.end())
+        if (keymap.find(key + QString::number(i)) == keymap.end()) {
             keymap.insert((key + QString::number(i)), value);
             break;
         }
+    }
     if (i == 1)
         validKey.insert(key);
     if (i == INT_MAX)
-        qDebug() << "fuck the key,it's too much" ;
+        qDebug() << "fuck the key,it's too much";
+    wordList.append(qMakePair(key, i));
 }
