@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_1">
        <attribute name="title">
@@ -77,14 +77,18 @@
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QSpinBox" name="pinyinLensSpinBox"/>
+           <widget class="QSpinBox" name="pinyinLensSpinBox">
+            <property name="value">
+             <number>0</number>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QTableView" name="words_role_view">
+           <widget class="QTableView" name="words_rule_view">
             <property name="autoFillBackground">
              <bool>true</bool>
             </property>

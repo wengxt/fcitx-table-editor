@@ -25,7 +25,7 @@ class FileParser
   QString ConstructPhrase;
   QString InvalidChar;
 
-  QList< QPair<QString, QStringList> > wordRole;
+  QList< QPair<QString, QStringList> > wordRule;
   QMap<WordDict, QString> keymap;
   QList< QMap<WordDict, QString>::const_iterator > wordList;
 
@@ -38,7 +38,7 @@ class FileParser
   QString readSection(const QString &text);
 
   bool intoData;
-  bool intoRole;
+  bool intoRule;
 
 };
 

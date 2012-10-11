@@ -1,16 +1,16 @@
-#ifndef  _ROLEMODEL_H_
-#define  _ROLEMODEL_H_
+#ifndef  _RULEMODEL_H_
+#define  _RULEMODEL_H_
 
 #include <QStringList>
 #include <QAbstractTableModel>
 #include "FileParser.h"
 
-class RoleModel: public QAbstractTableModel
+class RuleModel: public QAbstractTableModel
 {
   Q_OBJECT
 
  public:
-  RoleModel(QObject *parent = 0);
+  RuleModel(QObject *parent = 0);
   void setParser(FileParser *fileParser);
   int rowCount(const QModelIndex &parent) const;
   int columnCount(const QModelIndex &parent) const;
@@ -22,7 +22,7 @@ class RoleModel: public QAbstractTableModel
  private:
   QStringList modelheader;
   FileParser *parserModel;
-  QList< QPair<QString, QStringList> > *wordRole;
+  QList< QPair<QString, QStringList> > *wordRule;
 };
 
-#endif   /* ----- #ifndef _ROLEMODEL_h ---- */
+#endif   /* ----- #ifndef _RULEMODEL_h ---- */

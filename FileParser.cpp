@@ -4,8 +4,8 @@
 void FileParser::openFile(const QString &fileName)
 {
   intoData = false;
-  intoRole = false;
-  wordRole.clear();
+  intoRule = false;
+  wordRule.clear();
 
   KeyCode.clear();
   Length.clear();
@@ -63,19 +63,19 @@ void FileParser::processLine(const QString &text)
   if (!section.isEmpty()) {
     if (section == QString::fromUtf8("数据") || section == "Data") {
       intoData = true;
-      intoRole = false;
+      intoRule = false;
       return;
     }
     if (section == QString::fromUtf8("组词规则") || section == "Rule") {
-      intoRole = true;
+      intoRule = true;
     }
   }
 
   QStringList conf = readConf(text);
   if (!conf.isEmpty()) {
-    if (intoRole == true) {
+    if (intoRule == true) {
       QStringList tmp = conf.at(1).split('+');
-      wordRole.append(qMakePair(conf.at(0), tmp));
+      wordRule.append(qMakePair(conf.at(0), tmp));
     }
     if (conf.at(0) == QString::fromUtf8("键码") || conf.at(0) == "KeyCode") {
       KeyCode = conf.at(1);
@@ -155,7 +155,7 @@ void FileParser::saveWordDic(const QStringList &keyvalue)
             break;
         }
     }
-    if (i == 1)
+    if (i == 1 && keymap.find(WordDict(key, 2)) == keymap.end()) // 防止set集合中key已存在，只是WordDict(key,1)已被删除。
         validKey.insert(key);
     if (i == INT_MAX) {
         qDebug() << "fuck the key,it's too much";
