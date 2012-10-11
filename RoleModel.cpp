@@ -6,7 +6,7 @@ RoleModel::RoleModel(QObject *parent)
 {
 }
 
-void RoleModel::chooseParser(FileParser *fileParser)
+void RoleModel::setParser(FileParser *fileParser)
 {
     parserModel = fileParser;
     wordRole = &(parserModel->wordRole);

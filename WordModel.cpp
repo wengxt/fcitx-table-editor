@@ -7,7 +7,7 @@ WordModel::WordModel(QObject *parent)
     modelheader << "Key" << "Word";
 }
 
-void WordModel::chooseParser(FileParser *fileParser)
+void WordModel::setParser(FileParser *fileParser)
 {
     parserModel = fileParser;
     keymap = &(fileParser->keymap);
@@ -82,7 +82,7 @@ Qt::ItemFlags WordModel::flags(const QModelIndex & index) const
   return flags;
 }
 
-bool WordModel::isWordDicExists(QString key, int index)
+bool WordModel::isWordDicExists(const QString &key, const int &index)
 {
     if (keymap->find(key + QString::number(index)) == keymap->end())
         return false;

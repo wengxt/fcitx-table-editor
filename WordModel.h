@@ -13,7 +13,7 @@ class WordModel: public QAbstractTableModel
 
  public:
   WordModel(QObject *parent = 0);
-  void chooseParser(FileParser *fileParser);
+  void setParser(FileParser *fileParser);
   int rowCount(const QModelIndex &parent) const;
   int columnCount(const QModelIndex &parent) const;
   QVariant data(const QModelIndex &index, int role) const;
@@ -22,7 +22,7 @@ class WordModel: public QAbstractTableModel
   Qt::ItemFlags flags(const QModelIndex &index) const;
 
  private:
-  bool isWordDicExists(QString key, int index);
+  bool isWordDicExists(const QString &key, const int &index);
   QStringList modelheader;
   FileParser *parserModel;
   QSet<QString> *validKey;

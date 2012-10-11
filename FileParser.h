@@ -10,7 +10,7 @@
 class FileParser
 {
  public:
-  void openFile(QString fileName);
+  void openFile(const QString &fileName);
   void pfall(void);
 
   // follow var are MB template,
@@ -30,11 +30,11 @@ class FileParser
   QSet<QString> validKey;
 
  private:
-  void processLine(const QString text);
-  QStringList readKeyVal(const QString text);
-  QStringList readConf(const QString text);
-  QString readSection(const QString text);
-  void saveWordDic(QStringList keyvalue);
+  void processLine(const QString &text);
+  QStringList readKeyVal(const QString &text);
+  QStringList readConf(const QString &text);
+  QString readSection(const QString &text);
+  void saveWordDic(const QStringList &keyvalue);
 
   bool intoData;
   bool intoRole;

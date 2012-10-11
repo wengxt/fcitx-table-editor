@@ -1,7 +1,7 @@
 #include "FileParser.h"
 #include <QtCore>
 
-void FileParser::openFile(QString fileName)
+void FileParser::openFile(const QString &fileName)
 {
   intoData = false;
   intoRole = false;
@@ -44,7 +44,7 @@ void FileParser::pfall()
   out.setCodec("UTF-8");
   out << KeyCode << endl << Length;
 }
-void FileParser::processLine(const QString text)
+void FileParser::processLine(const QString &text)
 {
   QStringList keyVal;
   if (intoData) {
@@ -104,7 +104,7 @@ void FileParser::processLine(const QString text)
   }
 }
 
-QStringList FileParser::readKeyVal(const QString text)
+QStringList FileParser::readKeyVal(const QString &text)
 {
   QStringList oneKeyVal;
   QString splitWhiteSpace = text;
@@ -114,7 +114,7 @@ QStringList FileParser::readKeyVal(const QString text)
   return oneKeyVal;
 }
 
-QStringList FileParser::readConf(const QString text)
+QStringList FileParser::readConf(const QString &text)
 {
   QStringList conf;
   if (text.contains('=')) {
@@ -124,7 +124,7 @@ QStringList FileParser::readConf(const QString text)
   return conf;
 }
 
-QString FileParser::readSection(const QString text)
+QString FileParser::readSection(const QString &text)
 {
   QString sectionName;
   
@@ -138,7 +138,7 @@ QString FileParser::readSection(const QString text)
   return sectionName;
 }
 
-void FileParser::saveWordDic(QStringList keyvalue)
+void FileParser::saveWordDic(const QStringList &keyvalue)
 {
     QString key = keyvalue.at(0);
     QString value = keyvalue.at(1);

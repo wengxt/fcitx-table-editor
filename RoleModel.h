@@ -11,7 +11,7 @@ class RoleModel: public QAbstractTableModel
 
  public:
   RoleModel(QObject *parent = 0);
-  void chooseParser(FileParser *fileParser);
+  void setParser(FileParser *fileParser);
   int rowCount(const QModelIndex &parent) const;
   int columnCount(const QModelIndex &parent) const;
   QVariant data(const QModelIndex &index, int role) const;

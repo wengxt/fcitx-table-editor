@@ -22,8 +22,8 @@ void MainWindow::on_action_Open_triggered()
     if (fileName.isEmpty())
         return;
     xx.openFile(fileName);
-    roleModel->chooseParser(&xx);
-    wordModel->chooseParser(&xx);
+    roleModel->setParser(&xx);
+    wordModel->setParser(&xx);
     keyCodeLineEdit->setText(xx.KeyCode);
     lengthSpinBox->setValue(xx.Length.toInt());
     pinyinLineEdit->setText(xx.Pinyin);
