@@ -1,12 +1,12 @@
-#include "MyProxyModel.h"
+#include "FilterProxyModel.h"
 
-MyProxyModel::MyProxyModel(QObject *parent)
+FilterProxyModel::FilterProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent)
 {
 }
 
 
-bool MyProxyModel::lessThan(const QModelIndex &left,
+bool FilterProxyModel::lessThan(const QModelIndex &left,
                                       const QModelIndex &right) const
 {
     QVariant leftData = sourceModel()->data(left);

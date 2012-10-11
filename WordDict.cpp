@@ -1,4 +1,5 @@
 #include "WordDict.h"
+
 bool operator==(const WordDict &left, const WordDict &right) {
   return (left.get_key() == right.get_key()) &&
           (left.get_index() == right.get_index());

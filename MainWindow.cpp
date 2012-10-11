@@ -7,7 +7,7 @@ MainWindow::MainWindow()
 
   roleModel = new RoleModel();
   wordModel = new WordModel();
-  proxyModel = new MyProxyModel();
+  proxyModel = new FilterProxyModel();
   proxyModel->setDynamicSortFilter(true);
   regType_comboBox->addItem(tr("Regular expression"), QRegExp::RegExp);
   regType_comboBox->addItem(tr("Wildcard"), QRegExp::Wildcard);

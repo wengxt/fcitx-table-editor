@@ -5,7 +5,7 @@
 #include "FileParser.h"
 #include "RoleModel.h"
 #include "WordModel.h"
-#include "MyProxyModel.h"
+#include "FilterProxyModel.h"
 #include <QMainWindow>
 #include <QRegExp>
 
@@ -24,7 +24,7 @@ private:
   FileParser xx;
   RoleModel *roleModel;
   WordModel *wordModel;
-  MyProxyModel *proxyModel;
+  FilterProxyModel *proxyModel;
   QRegExp regExp;
 };
 
