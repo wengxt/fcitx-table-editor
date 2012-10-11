@@ -1,9 +1,10 @@
 #ifndef _FILEPARSER_H_
 #define _FILEPARSER_H_
 
+#include "WordDict.h"
 #include <QString>
 #include <QStringList>
-#include <QMultiMap>
+#include <QMap>
 #include <QPair>
 #include <QSet>
 
@@ -12,6 +13,7 @@ class FileParser
  public:
   void openFile(const QString &fileName);
   void pfall(void);
+  void saveWordDic(const QStringList &keyvalue);
 
   // follow var are MB template,
   // https://github.com/fcitx/fcitx/blob/master/tools/mb2txt.c
@@ -24,9 +26,9 @@ class FileParser
   QString InvalidChar;
 
   QList< QPair<QString, QStringList> > wordRole;
-  QMap<QString, QString> keymap; // index is the valid key repate times,
-                                 // keymap.key() = key + QString(index), key.value() = value
-  QList< QPair<QString, int> > wordList;  //save the key and index
+  QMap<WordDict, QString> keymap;
+  QList< QMap<WordDict, QString>::const_iterator > wordList;
+
   QSet<QString> validKey;
 
  private:
@@ -34,7 +36,6 @@ class FileParser
   QStringList readKeyVal(const QString &text);
   QStringList readConf(const QString &text);
   QString readSection(const QString &text);
-  void saveWordDic(const QStringList &keyvalue);
 
   bool intoData;
   bool intoRole;

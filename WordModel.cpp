@@ -37,16 +37,17 @@ QVariant WordModel::data(const QModelIndex &index, int role) const
     return int(Qt::AlignLeft | Qt::AlignVCenter);
   }
   if (role == Qt::DisplayRole && index.row() < wordList->size()) {
+      QMap<WordDict, QString>::const_iterator i = wordList->at(index.row());
     if (index.column() == 0)
-       return wordList->at(index.row()).first;
-    else if (index.column() == 1)
-       return (*keymap)[wordList->at(index.row()).first
-               + QString::number(wordList->at(index.row()).second)];
+       return i.key().get_key();
+    else if (index.column() == 1) {
+        return i.value();
     }
+  }
   return QVariant();
 }
 
-bool WordModel::setData(const QModelIndex &index, const QVariant &/*value*/ , int role)
+bool WordModel::setData(const QModelIndex &index, const QVariant &value , int role)
 {
   if (!index.isValid()) {
     return false;
@@ -54,10 +55,25 @@ bool WordModel::setData(const QModelIndex &index, const QVariant &/*value*/ , in
 
 
   if (role == Qt::EditRole) {
-      if (index.column() == 0) {
+      QStringList wordKeyValue;
+      QString modifiedValue = value.toString();
+      QMap<WordDict, QString>::const_iterator i = wordList->at(index.row());
+      WordDict tmp(i.key().get_key(), i.key().get_index());
+      if (index.column() == 0 && tmp.get_key() != modifiedValue) {
+        wordKeyValue << modifiedValue << i.value();
+        parserModel->saveWordDic(wordKeyValue);
       }
-      else if (index.column() == 1) {
+      else if (index.column() == 1 && modifiedValue != i.value()) {
+          wordKeyValue << tmp.get_key() << modifiedValue;
+          parserModel->saveWordDic(wordKeyValue);
       }
+      else
+          return false;
+      keymap->remove(tmp);
+      wordList->clear();
+      for (i = keymap->constBegin(); i != keymap->constEnd(); ++i) {
+          wordList->append(i);
+  }
       emit dataChanged(index, index);
       return true;
   }
@@ -80,12 +96,4 @@ Qt::ItemFlags WordModel::flags(const QModelIndex & index) const
   if (index.isValid())
     flags |= Qt::ItemIsEditable;
   return flags;
-}
-
-bool WordModel::isWordDicExists(const QString &key, const int &index)
-{
-    if (keymap->find(key + QString::number(index)) == keymap->end())
-        return false;
-    else
-        return true;
 }

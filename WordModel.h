@@ -22,12 +22,11 @@ class WordModel: public QAbstractTableModel
   Qt::ItemFlags flags(const QModelIndex &index) const;
 
  private:
-  bool isWordDicExists(const QString &key, const int &index);
   QStringList modelheader;
   FileParser *parserModel;
   QSet<QString> *validKey;
-  QMap<QString, QString> *keymap;
-  QList< QPair<QString, int> > *wordList;
+  QMap<WordDict, QString> *keymap;
+  QList< QMap<WordDict, QString>::const_iterator > *wordList;
 };
 
 #endif // WORDMODEL_H

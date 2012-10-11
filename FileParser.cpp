@@ -36,6 +36,10 @@ void FileParser::openFile(const QString &fileName)
     processLine(line);
   }
   file.close();
+  QMap<WordDict, QString>::const_iterator i;
+  for (i = keymap.constBegin(); i != keymap.constEnd(); ++i) {
+     wordList.append(i);
+  }
 }
 
 void FileParser::pfall()
@@ -142,16 +146,19 @@ void FileParser::saveWordDic(const QStringList &keyvalue)
 {
     QString key = keyvalue.at(0);
     QString value = keyvalue.at(1);
+    WordDict wordKeyMap(key, 0);
     int i;
     for (i = 1; i < INT_MAX; i++) {
-        if (keymap.find(key + QString::number(i)) == keymap.end()) {
-            keymap.insert((key + QString::number(i)), value);
+        wordKeyMap.set_index(i);
+        if (keymap.find(wordKeyMap) == keymap.end()) {
+            keymap.insert(wordKeyMap, value);
             break;
         }
     }
     if (i == 1)
         validKey.insert(key);
-    if (i == INT_MAX)
+    if (i == INT_MAX) {
         qDebug() << "fuck the key,it's too much";
-    wordList.append(qMakePair(key, i));
+        return;
+    }
 }
