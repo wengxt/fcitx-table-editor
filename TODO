@@ -1,0 +1,14 @@
+<2012-10-11 四>
+* DONE new Class WordDict <2012-10-11 四> 
+
+* TODO DirtyCode?? Use QList<QMap::const_iterator> to save all map iterator.
+  ** When Map key or value changed, the list will clear
+     and copy All map iterator from begin to end！
+
+* TODO Add WordDict Key dataType filter or not（directly using RegExp Filter） 
+  
+* TODO Move up or Move down the key/value, and sort it, modifier the key index.
+  
+* TODO Save/Save As file，delete Line
+
+* TODO WordsRole model limits the lines by KeyLength
